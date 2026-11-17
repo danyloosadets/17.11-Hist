@@ -1,0 +1,1094 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Людина і сім’я §1–4</title>
+<style>
+/* Презентація до §1–4 розділу I підручника «Білий». Один слайд видно за раз;
+   кожен слайд має інтерактивну вправу. Прогрес зберігається на пристрої учня. */
+:root{
+  --bg:#FFF6E6; --ink:#1B2747; --muted:#4E5874; --card:#FFFFFF; --line:#E3D6BD;
+  --blue:#2D6CDF; --coral:#EE6452; --sun:#F7B731; --mint:#2CB58A; --violet:#7B61FF;
+  --blue-soft:#DCE8FF; --coral-soft:#FFE0DA; --sun-soft:#FFF0C7; --mint-soft:#D5F4E8; --violet-soft:#E6E0FF;
+  --on-accent:#14203D; --ok:#17825E; --bad:#C2372B; --ok-soft:#D5F4E8; --bad-soft:#FFE0DA;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141B33; --ink:#F4F0E6; --muted:#B9C1D8; --card:#1F2848; --line:#3A4664;
+    --blue:#6E9BFF; --coral:#FF8A7C; --sun:#FFC85C; --mint:#4FD1A6; --violet:#A38DFF;
+    --blue-soft:#243A6B; --coral-soft:#5A2C32; --sun-soft:#4D3E18; --mint-soft:#1D4A3C; --violet-soft:#33295E;
+    --on-accent:#14203D; --ok:#6FE0B5; --bad:#FF8A7C; --ok-soft:#1D4A3C; --bad-soft:#5A2C32;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141B33; --ink:#F4F0E6; --muted:#B9C1D8; --card:#1F2848; --line:#3A4664;
+  --blue:#6E9BFF; --coral:#FF8A7C; --sun:#FFC85C; --mint:#4FD1A6; --violet:#A38DFF;
+  --blue-soft:#243A6B; --coral-soft:#5A2C32; --sun-soft:#4D3E18; --mint-soft:#1D4A3C; --violet-soft:#33295E;
+  --on-accent:#14203D; --ok:#6FE0B5; --bad:#FF8A7C; --ok-soft:#1D4A3C; --bad-soft:#5A2C32;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Nunito','Trebuchet MS',Arial,sans-serif; font-size:18px; line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px; min-height:100vh;
+}
+h1,h2,h3{font-family:'Fredoka','Trebuchet MS',Arial,sans-serif; line-height:1.15; margin:0; text-wrap:balance; font-weight:600}
+h1{font-size:60px} h2{font-size:38px} h3{font-size:22px}
+p{margin:0}
+button{font:inherit; color:inherit; cursor:pointer}
+:focus-visible{outline:3px solid var(--blue); outline-offset:3px}
+
+.deck{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:14px}
+.stage{background:var(--card); border-radius:28px; box-shadow:0 10px 40px rgba(27,39,71,.12); min-height:560px}
+.slide{padding:32px 44px; display:flex; flex-direction:column; gap:18px; min-height:560px}
+.slide[hidden]{display:none!important}
+.kicker{font-weight:800; letter-spacing:.08em; text-transform:uppercase; font-size:14px; color:var(--muted)}
+.lead{font-size:20px; color:var(--muted)}
+.row{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+.grid4{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+.tile{border-radius:22px; padding:18px 20px; display:flex; flex-direction:column; gap:8px; min-width:0}
+.tile b{font-family:'Fredoka',Arial,sans-serif; font-size:22px; font-weight:600}
+.tile span{font-size:17px}
+.t-blue{background:var(--blue-soft)} .t-coral{background:var(--coral-soft)} .t-sun{background:var(--sun-soft)}
+.t-mint{background:var(--mint-soft)} .t-violet{background:var(--violet-soft)}
+.chip{display:inline-block; align-self:flex-start; border-radius:999px; padding:4px 14px; font-weight:800; font-size:15px; color:var(--on-accent)}
+.c-blue{background:var(--blue); color:#fff} .c-coral{background:var(--coral)} .c-sun{background:var(--sun)} .c-mint{background:var(--mint)} .c-violet{background:var(--violet); color:#fff}
+.quote{font-size:20px; font-style:italic; color:var(--muted); border-left:6px solid var(--sun); padding-left:16px}
+.note{background:var(--sun-soft); border-radius:18px; padding:12px 16px; font-size:17px}
+.ask{background:var(--violet-soft); border-radius:18px; padding:12px 16px; font-size:17px}
+.cover{justify-content:center; background:linear-gradient(135deg,var(--blue-soft),var(--mint-soft) 60%,var(--sun-soft))}
+.cover h1{font-size:68px}
+ul.plain{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:5px; font-size:17px}
+
+/* Коло (§1) */
+.rings{display:flex; align-items:center; gap:30px; flex-wrap:wrap}
+.target{position:relative; width:320px; height:320px; flex:none}
+.ring{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; display:flex; align-items:center; justify-content:center; text-align:center; font-weight:800; font-size:15px; line-height:1.2; padding:10px}
+.r1{width:320px; height:320px; background:var(--blue-soft); align-items:flex-start; padding-top:30px}
+.r2{width:236px; height:236px; background:var(--mint-soft); align-items:flex-start; padding-top:28px}
+.r3{width:152px; height:152px; background:var(--sun-soft)}
+.r4{width:80px; height:80px; background:var(--coral); color:#fff; font-size:14px}
+.legend{display:flex; flex-direction:column; gap:10px; flex:1; min-width:240px}
+.legend div{border-radius:16px; padding:10px 14px; background:var(--bg); font-size:16px}
+.legend b{display:block; font-family:'Fredoka',Arial,sans-serif; font-size:19px; font-weight:600}
+
+/* Ланцюжок (§2) */
+.chain{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.chain .box{border-radius:16px; padding:12px 16px; font-family:'Fredoka',Arial,sans-serif; font-size:19px; font-weight:600; background:var(--mint-soft)}
+.chain .arr{font-size:26px; font-weight:800; color:var(--muted)}
+
+/* Сімейні схеми (§2) */
+.fam{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:center; padding:14px; border-radius:18px; background:var(--bg); min-height:120px}
+.person{width:50px; height:50px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; text-align:center}
+.person.g{background:var(--coral)} .person.k{background:var(--mint); color:var(--on-accent)} .person.s{background:var(--sun); color:var(--on-accent)}
+
+table{border-collapse:separate; border-spacing:0; width:100%; font-size:16px; border-radius:18px; overflow:hidden}
+th,td{padding:8px 12px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
+th{font-family:'Fredoka',Arial,sans-serif; font-weight:600; font-size:18px; background:var(--blue-soft)}
+.tablewrap{overflow-x:auto; border-radius:18px}
+
+/* Вправи — спільний вигляд */
+.ex{border:3px dashed var(--line); border-radius:22px; padding:14px 16px; display:flex; flex-direction:column; gap:12px; background:var(--bg)}
+.ex.done{border-style:solid; border-color:var(--ok)}
+.ex-h{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.ex-h .tag{font-weight:900; font-size:13px; letter-spacing:.06em; text-transform:uppercase; background:var(--ink); color:var(--card); border-radius:999px; padding:4px 12px}
+.ex-h b{font-family:'Fredoka',Arial,sans-serif; font-size:20px; font-weight:600}
+.ex.done .ex-h .tag::after{content:" ✓"}
+.opts{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
+.opt{min-height:50px; border-radius:14px; border:2px solid var(--line); background:var(--card); padding:10px 14px; text-align:left; font-size:17px; font-weight:700; transition:transform .12s, background .2s}
+.opt:not(:disabled):hover{transform:translateY(-2px); border-color:var(--blue)}
+.opt.right,.opt.matched{background:var(--ok-soft); border-color:var(--ok)}
+.opt.wrong{background:var(--bad-soft); border-color:var(--bad)}
+.opt.sel{background:var(--blue-soft); border-color:var(--blue)}
+.opt.miss{border:2px dashed var(--ok)}
+.opt:disabled{cursor:default}
+.pairs{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.pairs .col{display:flex; flex-direction:column; gap:8px}
+.pairs .lab{font-weight:900; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.opt.l.sel{background:var(--sun-soft); border-color:var(--sun)}
+.opt.r.wrong{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.qbtns{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.btn{border:0; border-radius:999px; padding:9px 18px; font-weight:800; font-size:16px; background:var(--ink); color:var(--card)}
+.btn.ghost{background:transparent; color:var(--ink); border:2px solid var(--line)}
+.btn:disabled{opacity:.4; cursor:default}
+.fb{font-weight:800; font-size:17px; min-height:1.4em}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+
+/* Так / Ні */
+.tfrow{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; background:var(--card); border-radius:14px; padding:9px 12px; border:2px solid transparent; font-size:17px}
+.tfrow.right{border-color:var(--ok); background:var(--ok-soft)}
+.tfrow.wrong{border-color:var(--bad); background:var(--bad-soft); animation:shake .35s}
+.tfbtns{display:flex; gap:8px}
+.tfb{border:2px solid var(--line); background:var(--bg); border-radius:999px; padding:5px 16px; font-weight:800; font-size:15px}
+.tfb:disabled{cursor:default}
+
+/* Розкласти по групах (sort) */
+.pool{display:flex; flex-wrap:wrap; gap:8px; min-height:44px; padding:8px; border-radius:14px; background:var(--card)}
+.sitem{border:2px solid var(--line); background:var(--bg); border-radius:12px; padding:7px 12px; font-weight:700; font-size:15px}
+.sitem.sel{border-color:var(--blue); background:var(--blue-soft)}
+.sitem.right{background:var(--ok-soft); border-color:var(--ok)}
+.sitem.wrong{background:var(--bad-soft); border-color:var(--bad)}
+.buckets{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px}
+.bucket{border:2px dashed var(--muted); border-radius:16px; padding:8px; min-height:80px; display:flex; flex-direction:column; gap:6px; background:var(--card)}
+.blab{font-family:'Fredoka',Arial,sans-serif; font-weight:600; font-size:16px}
+.blist{display:flex; flex-wrap:wrap; gap:6px}
+
+/* Вставити слово (blank) */
+.sentence{font-size:18px; line-height:2}
+.gap{display:inline-block; min-width:90px; border-bottom:3px solid var(--blue); text-align:center; padding:0 6px; border-radius:6px; cursor:pointer; color:var(--blue); font-weight:800}
+.gap.right{color:var(--ok); border-color:var(--ok); cursor:default}
+.gap.wrong{animation:shake .35s; color:var(--bad); border-color:var(--bad)}
+.chips{display:flex; gap:8px; flex-wrap:wrap}
+.chipw{border-radius:999px; border:2px solid var(--violet); background:var(--violet-soft); padding:6px 14px; font-weight:800; font-size:16px}
+.chipw.sel{background:var(--violet); color:#fff}
+.chipw:disabled{opacity:.35; cursor:default}
+
+/* Порядок (order) */
+.orders{display:flex; gap:10px; flex-wrap:wrap}
+.ord{border-radius:14px; border:2px solid var(--line); background:var(--card); padding:10px 16px; font-weight:800; font-size:17px}
+.ord:disabled{border-color:var(--ok); background:var(--ok-soft); cursor:default}
+.ord .n{display:inline-block; background:var(--ok); color:#fff; border-radius:999px; min-width:24px; height:24px; line-height:24px; text-align:center; margin-right:8px; font-size:14px}
+
+/* Поміркуйте (reveal) */
+.rvs{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.rv{background:var(--card); border-radius:14px; padding:12px 14px; display:flex; flex-direction:column; gap:8px; font-size:16px}
+.rv .rvq{font-weight:800}
+.rva{background:var(--mint-soft); border-radius:12px; padding:10px 12px; font-size:16px}
+
+/* Навігація */
+.nav{display:flex; align-items:center; gap:10px; justify-content:space-between; flex-wrap:wrap}
+.nav .btn{min-width:110px}
+.count{font-weight:800; color:var(--muted); font-size:16px}
+.progress{height:10px; border-radius:999px; background:var(--line); overflow:hidden; width:100%}
+.progress i{display:block; height:100%; background:linear-gradient(90deg,var(--blue),var(--mint)); width:0; transition:width .3s}
+.hint{font-size:15px; color:var(--muted); text-align:center}
+
+@media (max-width:819px){
+  .slide{padding:22px 18px}
+  h1{font-size:42px} h2{font-size:30px} .cover h1{font-size:46px}
+  .row,.grid3,.grid4,.opts,.pairs,.rvs{grid-template-columns:1fr}
+  .target{width:260px; height:260px}
+  .r1{width:260px; height:260px}.r2{width:190px; height:190px}.r3{width:124px; height:124px}.r4{width:66px; height:66px; font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<main class="deck">
+  <div class="stage" id="stage">
+
+    <!-- 1. Титул + розминка -->
+    <section class="slide cover" aria-label="Титул">
+      <p class="kicker">Україна і світ · 6 клас · підручник «Білий»</p>
+      <h1>Розділ I.<br>Людина і сім’я</h1>
+      <p class="lead">Параграфи 1–4: людина як соціальна істота, сім’я, життєві цінності та потреби.</p>
+      <div class="ex" data-type="tf" data-id="s01-tf" style="background:var(--card)">
+        <div class="ex-h"><span class="tag">Розминка</span><b>Так чи ні?</b></div>
+        <div class="tfrow" data-ok="1"><span>Історія вивчає минулі події.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="0"><span>Людина — істота лише біологічна.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="1"><span>Людині потрібне спілкування з іншими людьми.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 2. План -->
+    <section class="slide" aria-label="План уроку" hidden>
+      <p class="kicker">Що ми вивчимо</p>
+      <h2>Чотири параграфи, одна тема</h2>
+      <div class="grid4">
+        <div class="tile t-blue"><span class="chip c-blue">§ 1</span><b>Людина як соціальна істота</b><span>Яке місце людина займає серед інших?</span></div>
+        <div class="tile t-coral"><span class="chip c-coral">§ 2</span><b>Сім’я і її історичні типи</b><span>Як виникла родина і які бувають сім’ї?</span></div>
+        <div class="tile t-sun"><span class="chip c-sun">§ 3</span><b>Розвиток людини у сім’ї</b><span>Чому родина формує людину?</span></div>
+        <div class="tile t-mint"><span class="chip c-mint">§ 4</span><b>Життєві цінності та потреби</b><span>Що важливе для людини?</span></div>
+      </div>
+      <div class="ex" data-type="sort" data-id="s02-sort">
+        <div class="ex-h"><span class="tag">Вправа</span><b>Розкладіть теми по параграфах</b></div>
+        <p class="lead" style="font-size:16px">Натисніть тему, потім групу. Щоб повернути тему, натисніть її в групі.</p>
+        <div class="pool">
+          <button class="sitem" data-cat="a">Індивід</button>
+          <button class="sitem" data-cat="b">Духовні цінності</button>
+          <button class="sitem" data-cat="a">Моногамія</button>
+          <button class="sitem" data-cat="b">Потреби людини</button>
+          <button class="sitem" data-cat="a">Людина — істота соціальна</button>
+          <button class="sitem" data-cat="b">Виховання в родині</button>
+        </div>
+        <div class="buckets">
+          <div class="bucket" data-cat="a"><span class="blab">§ 1–2 · людина і родина</span><div class="blist"></div></div>
+          <div class="bucket" data-cat="b"><span class="blab">§ 3–4 · цінності і потреби</span><div class="blist"></div></div>
+        </div>
+        <div class="qbtns"><button class="btn" data-check>Перевірити</button><button class="btn ghost" data-reset>Почати знову</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 3. §1 Питання -->
+    <section class="slide" aria-label="§1: вступні питання" hidden>
+      <p class="kicker">§ 1 · Вступ</p>
+      <h2>Почнемо з питань</h2>
+      <div class="row">
+        <div class="tile t-blue"><b>Що вивчає історія?</b><span>Яке місце в історії належить людині?</span></div>
+        <div class="tile t-violet"><b>Чи здатна одна людина змінити хід історії?</b><span>Пригадайте історичні особистості з 5 класу.</span></div>
+      </div>
+      <p class="quote">«Людина — істота соціальна, її не створили для життя в самотності». — Арістотель</p>
+      <div class="ex" data-type="reveal" data-id="s03-rv">
+        <div class="ex-h"><span class="tag">Поміркуйте</span><b>Спочатку подумайте, потім перевірте себе</b></div>
+        <div class="rvs">
+          <div class="rv"><p class="rvq">Що таке «людина» з вашого погляду?</p><button class="btn ghost rvb">Показати зразок</button><p class="rva" hidden>Зразок: людина — розумна соціальна істота, яка мислить, спілкується, творить і розвивається разом з іншими людьми.</p></div>
+          <div class="rv"><p class="rvq">Чи може одна людина змінити хід історії?</p><button class="btn ghost rvb">Показати зразок</button><p class="rva" hidden>Зразок: так, видатні особистості впливали на події, але рішення зазвичай ухвалюють багато людей разом.</p></div>
+        </div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 4. §1 Біологічне і соціальне -->
+    <section class="slide" aria-label="§1: біологічне і соціальне" hidden>
+      <p class="kicker">§ 1 · Людина як істота</p>
+      <h2>Біологічне і соціальне в людині</h2>
+      <div class="row">
+        <div class="tile t-blue">
+          <b>Спільне з усіма людьми</b>
+          <ul class="plain">
+            <li>Схожі біологічні риси: зріст, вага, колір волосся й очей</li>
+            <li>Потреби з народження: їжа, догляд, тепло</li>
+            <li>Без догляду людина не виживе</li>
+          </ul>
+        </div>
+        <div class="tile t-mint">
+          <b>Те, що робить людину людиною</b>
+          <ul class="plain">
+            <li>Здатність накопичувати знання і мислити</li>
+            <li>Прагнення до спілкування</li>
+            <li>Схильність до творчості</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ex" data-type="sort" data-id="s04-sort">
+        <div class="ex-h"><span class="tag">Вправа</span><b>Розподіліть риси на біологічні і соціальні</b></div>
+        <div class="pool">
+          <button class="sitem" data-cat="bio">колір очей</button>
+          <button class="sitem" data-cat="soc">прагнення до спілкування</button>
+          <button class="sitem" data-cat="bio">вага</button>
+          <button class="sitem" data-cat="soc">здатність накопичувати знання</button>
+          <button class="sitem" data-cat="bio">потреба в їжі з народження</button>
+          <button class="sitem" data-cat="soc">схильність до творчості</button>
+        </div>
+        <div class="buckets">
+          <div class="bucket" data-cat="bio"><span class="blab">Біологічні риси</span><div class="blist"></div></div>
+          <div class="bucket" data-cat="soc"><span class="blab">Соціальні риси</span><div class="blist"></div></div>
+        </div>
+        <div class="qbtns"><button class="btn" data-check>Перевірити</button><button class="btn ghost" data-reset>Почати знову</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 5. §1 Близнюки: вставити слово -->
+    <section class="slide" aria-label="§1: індивідуальність" hidden>
+      <p class="kicker">§ 1 · Індивідуальність</p>
+      <h2>Ніколи не буває двох однакових людей</h2>
+      <p class="lead">Навіть близнюки, схожі зовнішністю, різні: вони можуть мати різні смаки, звички й характери.</p>
+      <div class="grid3">
+        <div class="tile t-sun"><b>Смаки</b><span>різна їжа</span></div>
+        <div class="tile t-coral"><b>Інтереси</b><span>різна музика</span></div>
+        <div class="tile t-violet"><b>Характер</b><span>різні звички й погляди</span></div>
+      </div>
+      <div class="ex" data-type="blank" data-id="s05-blank">
+        <div class="ex-h"><span class="tag">Вправа</span><b>Вставте пропущені слова</b></div>
+        <p class="sentence">Навіть близнюки різні: вони можуть любити різну <span class="gap" data-ans="їжу">____</span>, слухати різну <span class="gap" data-ans="музику">____</span>.</p>
+        <p class="sentence">Сукупність рис і досвіду, що відрізняють людину від інших, — це <span class="gap" data-ans="індивідуальність">____</span>.</p>
+        <div class="chips">
+          <button class="chipw" data-w="особистість">особистість</button>
+          <button class="chipw" data-w="музику">музику</button>
+          <button class="chipw" data-w="їжу">їжу</button>
+          <button class="chipw" data-w="індивідуальність">індивідуальність</button>
+        </div>
+        <div class="qbtns"><button class="btn ghost" data-reset>Почати знову</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 6. §1 Коло понять -->
+    <section class="slide" aria-label="§1: індивід, індивідуальність, особистість" hidden>
+      <p class="kicker">§ 1 · Ключові поняття</p>
+      <h2>Індивід → індивідуальність → особистість</h2>
+      <div class="rings">
+        <div class="target">
+          <div class="ring r1">Суспільство</div>
+          <div class="ring r2">Особистість</div>
+          <div class="ring r3">Індивідуальність</div>
+          <div class="ring r4">Індивід</div>
+        </div>
+        <div class="legend">
+          <div><b>Індивід</b>окремий живий організм, що існує самостійно</div>
+          <div><b>Індивідуальність</b>сукупність рис, властивостей і досвіду, що відрізняють людину від інших</div>
+          <div><b>Особистість</b>людина, яку виховали в суспільстві; її характер і ставлення до суспільства формуються в оточенні</div>
+        </div>
+      </div>
+      <div class="ex" data-type="single" data-id="s06-single">
+        <div class="ex-h"><span class="tag">1 з 4</span><b>Що, за підручником, формує особистість?</b></div>
+        <div class="opts">
+          <button class="opt" data-ok="0">Колір волосся</button>
+          <button class="opt" data-ok="1">Виховання в суспільстві</button>
+          <button class="opt" data-ok="0">Біологічні особливості</button>
+          <button class="opt" data-ok="0">Вага тіла</button>
+        </div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 7. §1 Дикі діти -->
+    <section class="slide" aria-label="Історичні подробиці: Суджит Кумар" hidden>
+      <p class="kicker">§ 1 · Історичні подробиці</p>
+      <h2>Чи можна вирости без людей?</h2>
+      <div class="row" style="align-items:start">
+        <div class="tile t-sun">
+          <b>Суджит Кумар, Фіджі, 1978</b>
+          <span>Хлопчика знайшли випадково. На вигляд 6–7 років, але він не розмовляв і поводився як півень.</span>
+          <span>Кілька років дідусь тримав його в курнику.</span>
+        </div>
+        <div class="tile t-blue">
+          <b>Що з’ясувалося</b>
+          <span>Його всиновили, але повноцінним членом суспільства він так і не став.</span>
+          <span>Не навчився тримати виделку, читати, спілкуватися з підлітками.</span>
+        </div>
+      </div>
+      <div class="ex" data-type="tf" data-id="s07-tf">
+        <div class="ex-h"><span class="tag">Вправа</span><b>Так чи ні?</b></div>
+        <div class="tfrow" data-ok="1"><span>Суджита Кумара знайшли на Фіджі у 1978 році.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="0"><span>Хлопчик одразу навчився розмовляти і читати.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="1"><span>Він провів кілька років в умовах, без людського спілкування.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="0"><span>Після усиновлення він став повноцінною особистістю.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 8. §1 Поміркуймо -->
+    <section class="slide" aria-label="Поміркуймо: суспільство" hidden>
+      <p class="kicker">§ 1 · Поміркуймо</p>
+      <h2>Обговоріть у класі</h2>
+      <div class="grid3">
+        <div class="tile t-blue"><span class="chip c-blue">1</span><b>Чому для людини важливо бути частиною суспільства?</b></div>
+        <div class="tile t-coral"><span class="chip c-coral">2</span><b>Чи можуть діти-мауглі стати повноцінними особистостями?</b></div>
+        <div class="tile t-mint"><span class="chip c-mint">3</span><b>Які риси індивідуальності є у вас?</b><span>Чи можуть вони змінюватися з віком?</span></div>
+      </div>
+      <div class="ex" data-type="reveal" data-id="s08-rv">
+        <div class="ex-h"><span class="tag">Поміркуйте</span><b>Запишіть свою думку, потім перевірте зразок</b></div>
+        <div class="rvs">
+          <div class="rv"><p class="rvq">Чому важливо бути частиною суспільства?</p><button class="btn ghost rvb">Показати зразок</button><p class="rva" hidden>Зразок: лише серед людей людина вчиться мові, мисленню і нормам поведінки.</p></div>
+          <div class="rv"><p class="rvq">Чи можуть діти-мауглі стати повноцінними особистостями?</p><button class="btn ghost rvb">Показати зразок</button><p class="rva" hidden>Зразок: без людського спілкування у ранньому віці соціальні навички засвоюються дуже важко.</p></div>
+        </div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 9. §1–2 Пари понять -->
+    <section class="slide" aria-label="Вправа: поняття" hidden>
+      <p class="kicker">§ 1–2 · Перевір себе</p>
+      <h2>Поняття і означення</h2>
+      <div class="ex" data-type="pairs" data-id="s09-pairs">
+        <div class="ex-h"><span class="tag">4 пари + 1 зайвий</span><b>З’єднайте поняття з означенням</b></div>
+        <div class="pairs">
+          <div class="col"><span class="lab">Поняття</span>
+            <button class="opt l" data-id="ind">Індивід</button>
+            <button class="opt l" data-id="idv">Індивідуальність</button>
+            <button class="opt l" data-id="per">Особистість</button>
+            <button class="opt l" data-id="sim">Сім’я</button>
+          </div>
+          <div class="col"><span class="lab">Означення</span>
+            <button class="opt r" data-id="ind">окремий живий організм, що існує самостійно</button>
+            <button class="opt r" data-id="idv">сукупність рис і досвіду, що відрізняють від інших</button>
+            <button class="opt r" data-id="per">людина, яку виховали в суспільстві</button>
+            <button class="opt r" data-id="sim">об’єднання на основі шлюбу або кровної спорідненості</button>
+            <button class="opt r" data-id="x">книжка про дикі джунглі</button>
+          </div>
+        </div>
+        <div class="qbtns"><button class="btn ghost" data-reset>Почати знову</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 10. §2 Від племені до сім’ї -->
+    <section class="slide" aria-label="§2: від племені до сім’ї" hidden>
+      <p class="kicker">§ 2 · Зародження родини</p>
+      <h2>Від племені до сім’ї</h2>
+      <p class="lead">Спершу люди жили племенами. Плем’я складалося з родів, а рід — з родин зі спільними предками.</p>
+      <div class="chain">
+        <div class="box">Плем’я</div><span class="arr">→</span>
+        <div class="box">Рід</div><span class="arr">→</span>
+        <div class="box">Сім’я — основа суспільства</div>
+      </div>
+      <p class="note"><b>Сім’я</b> — об’єднання людей на основі шлюбу або кровної спорідненості, пов’язаних спільним побутом і взаємною відповідальністю.</p>
+      <div class="ex" data-type="order" data-id="s10-order">
+        <div class="ex-h"><span class="tag">Вправа</span><b>Натисніть у порядку розвитку: від найдавнішого</b></div>
+        <div class="orders">
+          <button class="ord" data-n="3">Сім’я</button>
+          <button class="ord" data-n="1">Плем’я</button>
+          <button class="ord" data-n="2">Рід</button>
+        </div>
+        <div class="qbtns"><button class="btn ghost" data-reset>Почати знову</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 11. §2 Три форми (розкласти) -->
+    <section class="slide" aria-label="§2: три форми сім’ї" hidden>
+      <p class="kicker">§ 2 · Історичні типи сім’ї</p>
+      <h2>Три найпоширеніші форми</h2>
+      <div class="grid3">
+        <div class="tile t-coral"><span class="chip c-coral">Поліандрія</span><b>Одна жінка — кілька чоловіків</b><span>Збереглася у деяких народів, зокрема в Тибеті.</span></div>
+        <div class="tile t-sun"><span class="chip c-sun">Полігамія</span><b>Один чоловік — кілька дружин</b><span>Поширена, зокрема, у Саудівській Аравії.</span></div>
+        <div class="tile t-mint"><span class="chip c-mint">Моногамія</span><b>Один чоловік — одна дружина</b><span>Найпоширеніша сучасна форма, притаманна культурі України.</span></div>
+      </div>
+      <div class="ex" data-type="sort" data-id="s11-sort">
+        <div class="ex-h"><span class="tag">Вправа</span><b>Розкладіть ознаки по формах сім’ї</b></div>
+        <div class="pool">
+          <button class="sitem" data-cat="p">Одна жінка — кілька чоловіків</button>
+          <button class="sitem" data-cat="l">Один чоловік — кілька дружин</button>
+          <button class="sitem" data-cat="m">Один чоловік — одна дружина</button>
+          <button class="sitem" data-cat="p">Збереглася в Тибеті</button>
+          <button class="sitem" data-cat="l">Поширена у Саудівській Аравії</button>
+          <button class="sitem" data-cat="m">Притаманна культурі України</button>
+        </div>
+        <div class="buckets">
+          <div class="bucket" data-cat="p"><span class="blab">Поліандрія</span><div class="blist"></div></div>
+          <div class="bucket" data-cat="l"><span class="blab">Полігамія</span><div class="blist"></div></div>
+          <div class="bucket" data-cat="m"><span class="blab">Моногамія</span><div class="blist"></div></div>
+        </div>
+        <div class="qbtns"><button class="btn" data-check>Перевірити</button><button class="btn ghost" data-reset>Почати знову</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 12. §2 Проста і складна сім'я -->
+    <section class="slide" aria-label="§2: проста і складна сім’я" hidden>
+      <p class="kicker">§ 2 · Моногамна сім’я</p>
+      <h2>Проста чи складна сім’я?</h2>
+      <div class="row">
+        <div class="tile t-blue">
+          <b>Проста моногамна сім’я</b>
+          <div class="fam" role="img" aria-label="Подружжя і двоє дітей">
+            <span class="person">Він</span><span class="person g">Вона</span><span class="person k">Діти</span><span class="person k">Діти</span>
+          </div>
+          <span>Подружжя та їхні діти.</span>
+        </div>
+        <div class="tile t-sun">
+          <b>Складна моногамна сім’я</b>
+          <div class="fam" role="img" aria-label="Подружжя, діти, дідусь і бабуся">
+            <span class="person s">Дід</span><span class="person s">Баба</span><span class="person">Він</span><span class="person g">Вона</span><span class="person k">Діти</span>
+          </div>
+          <span>Кілька простих сімей: дідусь, бабуся та інші родичі.</span>
+        </div>
+      </div>
+      <div class="ex" data-type="tf" data-id="s12-tf">
+        <div class="ex-h"><span class="tag">Вправа</span><b>Так чи ні?</b></div>
+        <div class="tfrow" data-ok="1"><span>Проста сім’я складається з подружжя та їхніх дітей.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="1"><span>Складна сім’я може містити дідуся і бабусю.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="0"><span>Моногамія — це сім’я, у якій чоловік має кількох дружин.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="0"><span>Складна сім’я — це один чоловік з дітьми.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 13. §2 Поміркуйте -->
+    <section class="slide" aria-label="§2: поширення різних форм" hidden>
+      <p class="kicker">§ 2 · Поміркуймо</p>
+      <h2>Чому форми сім’ї різні?</h2>
+      <p class="lead">Поширення різних форм сім’ї у різних народів світу має свої причини. Подумайте над ними.</p>
+      <div class="ex" data-type="reveal" data-id="s13-rv">
+        <div class="ex-h"><span class="tag">Поміркуйте</span><b>Ваші думки і зразки відповідей</b></div>
+        <div class="rvs">
+          <div class="rv"><p class="rvq">З чим пов’язане поширення різних форм сім’ї?</p><button class="btn ghost rvb">Показати зразок</button><p class="rva" hidden>Зразок: з традиціями, релігією, економічними умовами та історичним розвитком кожного народу.</p></div>
+          <div class="rv"><p class="rvq">До якого типу належить ваша родина?</p><button class="btn ghost rvb">Показати зразок</button><p class="rva" hidden>Відповідь індивідуальна: проста або складна моногамна сім’я. Подумайте, чи зміниться тип, якщо з вами житимуть родичі.</p></div>
+        </div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 14. §2 Квіз 1 з 4 -->
+    <section class="slide" aria-label="Вправа: поліандрія" hidden>
+      <p class="kicker">§ 2 · Перевір себе</p>
+      <h2>Який це тип сім’ї?</h2>
+      <div class="ex" data-type="single" data-id="s14-single">
+        <div class="ex-h"><span class="tag">1 з 4</span><b>Сім’я, у якій жінка може мати кількох чоловіків, — це…</b></div>
+        <div class="opts">
+          <button class="opt" data-ok="0">Моногамія</button>
+          <button class="opt" data-ok="0">Полігамія</button>
+          <button class="opt" data-ok="1">Поліандрія</button>
+          <button class="opt" data-ok="0">Проста сім’я</button>
+        </div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 15. §3 Сім'я — модель суспільства -->
+    <section class="slide" aria-label="§3: сім’я — модель суспільства" hidden>
+      <p class="kicker">§ 3 · Розвиток людини у сім’ї</p>
+      <h2>Сім’я — мініатюрна модель суспільства</h2>
+      <div class="row">
+        <div class="tile t-mint">
+          <b>Чого вчиться дитина в родині</b>
+          <ul class="plain">
+            <li>говорити, ходити, виконувати дії, копіюючи дорослих</li>
+            <li>любити, прощати, захищати</li>
+            <li>бути людяною і справедливою</li>
+          </ul>
+        </div>
+        <div class="tile t-blue">
+          <b>Що дає родина</b>
+          <ul class="plain">
+            <li>емоційний комфорт і захист</li>
+            <li>життєвий досвід</li>
+            <li>пріоритети, цілі та цінності на все життя</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ex" data-type="blank" data-id="s15-blank">
+        <div class="ex-h"><span class="tag">Вправа</span><b>Вставте пропущені слова</b></div>
+        <p class="sentence">Сім’я — мініатюрна модель великого <span class="gap" data-ans="суспільства">____</span>.</p>
+        <p class="sentence">Маленькі діти у родині навчаються <span class="gap" data-ans="говорити">____</span>, копіюючи дорослих.</p>
+        <div class="chips">
+          <button class="chipw" data-w="держави">держави</button>
+          <button class="chipw" data-w="говорити">говорити</button>
+          <button class="chipw" data-w="суспільства">суспільства</button>
+        </div>
+        <div class="qbtns"><button class="btn ghost" data-reset>Почати знову</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 16. §3 Прислів'я -->
+    <section class="slide" aria-label="§3: прислів’я про сім’ю" hidden>
+      <p class="kicker">§ 3 · Народна мудрість</p>
+      <h2>Що каже прислів’я?</h2>
+      <div class="grid3">
+        <div class="tile t-sun"><span>«У сім’ї і каша густіша».</span></div>
+        <div class="tile t-coral"><span>«У хорошій сім’ї хороші діти ростуть».</span></div>
+        <div class="tile t-mint"><span>«Дерево тримається корінням, а людина — родиною».</span></div>
+      </div>
+      <p class="quote">«Сім’я — основний осередок будь-якого суспільства і будь-якої цивілізації». — Рабіндранат Тагор</p>
+      <div class="ex" data-type="reveal" data-id="s16-rv">
+        <div class="ex-h"><span class="tag">Поміркуйте</span><b>Що означають ці слова?</b></div>
+        <div class="rvs">
+          <div class="rv"><p class="rvq">Що означає прислів’я про корінь і родину?</p><button class="btn ghost rvb">Показати зразок</button><p class="rva" hidden>Зразок: як дерево тримається корінням, так людина тримається родиною: родина дає опору і захист.</p></div>
+          <div class="rv"><p class="rvq">Чому люди надають значення родинному вихованню?</p><button class="btn ghost rvb">Показати зразок</button><p class="rva" hidden>Зразок: у родині дитина отримує перші навички, цінності й почуття безпеки.</p></div>
+        </div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 17. §4 Цінності -->
+    <section class="slide" aria-label="§4: життєві цінності" hidden>
+      <p class="kicker">§ 4 · Життєві цінності</p>
+      <h2>Що для людини важливо</h2>
+      <p class="lead">Життєві цінності — ідеали та цілі, до яких прагне людина: любов, дружба, здоров’я, толерантність, самоповага тощо.</p>
+      <div class="row">
+        <div class="tile t-sun"><b>Матеріальні</b><span>Блага, які задовольняють основні потреби: житло, їжа, вода, засоби для комфортного життя.</span></div>
+        <div class="tile t-violet"><b>Духовні</b><span>Моральні норми й принципи, ідеали, якими людина керується в житті.</span></div>
+      </div>
+      <div class="ex" data-type="sort" data-id="s17-sort">
+        <div class="ex-h"><span class="tag">Вправа</span><b>Розподіліть цінності на матеріальні і духовні</b></div>
+        <div class="pool">
+          <button class="sitem" data-cat="m">житло</button>
+          <button class="sitem" data-cat="d">любов</button>
+          <button class="sitem" data-cat="m">вода</button>
+          <button class="sitem" data-cat="d">чесність</button>
+          <button class="sitem" data-cat="m">їжа</button>
+          <button class="sitem" data-cat="d">повага</button>
+        </div>
+        <div class="buckets">
+          <div class="bucket" data-cat="m"><span class="blab">Матеріальні</span><div class="blist"></div></div>
+          <div class="bucket" data-cat="d"><span class="blab">Духовні</span><div class="blist"></div></div>
+        </div>
+        <div class="qbtns"><button class="btn" data-check>Перевірити</button><button class="btn ghost" data-reset>Почати знову</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 18. §4 Цінності у різних народів -->
+    <section class="slide" aria-label="§4: цінності у різних народів" hidden>
+      <p class="kicker">§ 4 · Порівняння</p>
+      <h2>Цінності різних народів відрізняються</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Країна</th><th>Головна цінність у вихованні дітей</th></tr></thead>
+          <tbody>
+            <tr><td><b>Америка</b></td><td>свобода і право вибору</td></tr>
+            <tr><td><b>Японія</b></td><td>слухняність і повага до старших</td></tr>
+            <tr><td><b>В’єтнам</b></td><td>соціальні навички, які діти здобувають серед однолітків і старших</td></tr>
+            <tr><td><b>Україна</b></td><td>доброта, повага, гідність, чесність</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ex" data-type="single" data-id="s18-single">
+        <div class="ex-h"><span class="tag">1 з 4</span><b>Яку цінність Японія вважає ключовою у вихованні?</b></div>
+        <div class="opts">
+          <button class="opt" data-ok="0">Свобода і право вибору</button>
+          <button class="opt" data-ok="1">Слухняність і повага до старших</button>
+          <button class="opt" data-ok="0">Навчання серед однолітків</button>
+          <button class="opt" data-ok="0">Гідність і чесність</button>
+        </div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 19. §4 Потреби -->
+    <section class="slide" aria-label="§4: групи потреб" hidden>
+      <p class="kicker">§ 4 · Потреби людини</p>
+      <h2>Чотири групи потреб</h2>
+      <p class="lead">Потреби — це необхідність користуватися певними благами. Без них життя стає некомфортним і складним.</p>
+      <div class="grid4">
+        <div class="tile t-mint"><b>Біологічні</b><span>відпочинок, сон, здоров’я</span></div>
+        <div class="tile t-blue"><b>Соціальні</b><span>спілкування, громадська діяльність</span></div>
+        <div class="tile t-sun"><b>Матеріальні</b><span>їжа, житло, одяг, предмети побуту</span></div>
+        <div class="tile t-violet"><b>Духовні</b><span>дружба, кохання, пізнання світу</span></div>
+      </div>
+      <div class="ex" data-type="pairs" data-id="s19-pairs">
+        <div class="ex-h"><span class="tag">4 пари + 1 зайвий</span><b>З’єднайте групу потреб з прикладами</b></div>
+        <div class="pairs">
+          <div class="col"><span class="lab">Група</span>
+            <button class="opt l" data-id="bio">Біологічні</button>
+            <button class="opt l" data-id="soc">Соціальні</button>
+            <button class="opt l" data-id="mat">Матеріальні</button>
+            <button class="opt l" data-id="dux">Духовні</button>
+          </div>
+          <div class="col"><span class="lab">Приклад</span>
+            <button class="opt r" data-id="bio">сон, відпочинок, здоров’я</button>
+            <button class="opt r" data-id="soc">спілкування, громадська діяльність</button>
+            <button class="opt r" data-id="mat">їжа, житло, одяг</button>
+            <button class="opt r" data-id="dux">дружба, кохання, пізнання світу</button>
+            <button class="opt r" data-id="x">вивчення генеалогії</button>
+          </div>
+        </div>
+        <div class="qbtns"><button class="btn ghost" data-reset>Почати знову</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 20. §4 Історія кохання -->
+    <section class="slide" aria-label="§4: історія кохання" hidden>
+      <p class="kicker">§ 4 · Історичні подробиці</p>
+      <h2>«Історія кохання» у Києві</h2>
+      <div class="row" style="align-items:start">
+        <div class="tile t-coral">
+          <b>Прототипи пам’ятника</b>
+          <span>Італієць Луїджі та українка Мокрина познайомилися в Австрії під час Другої світової війни.</span>
+          <span>Їхнє кохання допомогло їм вижити в таборі для військовополонених.</span>
+        </div>
+        <div class="tile t-blue">
+          <b>Розлука і зустріч</b>
+          <span>Після війни Луїджі не дозволили вивезти Мокрину до Італії, і вони розлучилися.</span>
+          <span>Зустрілися знову через 60 років, уже в літньому віці.</span>
+        </div>
+      </div>
+      <div class="ex" data-type="tf" data-id="s20-tf">
+        <div class="ex-h"><span class="tag">Вправа</span><b>Так чи ні?</b></div>
+        <div class="tfrow" data-ok="1"><span>Луїджі і Мокрина познайомилися під час Другої світової війни.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="0"><span>Після війни Луїджі вивіз Мокрину до Італії.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="1"><span>Вони зустрілися знову через 60 років.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <div class="tfrow" data-ok="0"><span>Скульптура стоїть у Львові.</span><span class="tfbtns"><button class="tfb" data-v="1">Так</button><button class="tfb" data-v="0">Ні</button></span></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 21. §4 Поміркуйте про цінності -->
+    <section class="slide" aria-label="Поміркуйте: цінності скульптури" hidden>
+      <p class="kicker">§ 4 · Поміркуймо</p>
+      <h2>Яку цінність звеличує пам’ятник?</h2>
+      <div class="ex" data-type="reveal" data-id="s21-rv">
+        <div class="ex-h"><span class="tag">Поміркуйте</span><b>Ваша думка і зразок</b></div>
+        <div class="rvs">
+          <div class="rv"><p class="rvq">Які цінності звеличує скульптура «Історія кохання»?</p><button class="btn ghost rvb">Показати зразок</button><p class="rva" hidden>Зразок: кохання, вірність, витривалість і надію.</p></div>
+          <div class="rv"><p class="rvq">Який пам’ятник ви запропонували б?</p><button class="btn ghost rvb">Показати зразок</button><p class="rva" hidden>Відповідь творча. Можна обрати мотив надії, пам’яті або дружби.</p></div>
+        </div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 22. Підсумковий тест 3 з 7 -->
+    <section class="slide" aria-label="Підсумковий тест" hidden>
+      <p class="kicker">Підсумковий тест · §1–4</p>
+      <div class="ex" data-type="multi" data-id="s22-multi">
+        <div class="ex-h"><span class="tag">Оберіть 3 з 7</span><b>Які твердження правильні?</b></div>
+        <div class="opts">
+          <button class="opt" data-ok="1">Індивід — окремий живий організм, який існує самостійно.</button>
+          <button class="opt" data-ok="1">Сім’я — об’єднання людей на основі шлюбу або кровної спорідненості.</button>
+          <button class="opt" data-ok="0">Моногамія — форма сім’ї, у якій жінка може мати кількох чоловіків.</button>
+          <button class="opt" data-ok="0">Духовні потреби — це їжа, житло, одяг.</button>
+          <button class="opt" data-ok="1">Духовні цінності — моральні норми та принципи.</button>
+          <button class="opt" data-ok="0">Близнюки завжди однакові за характером і звичками.</button>
+          <button class="opt" data-ok="0">Родина не впливає на цінності дитини.</button>
+        </div>
+        <div class="qbtns">
+          <button class="btn" data-check>Перевірити</button>
+          <button class="btn ghost" data-reset>Спробувати знову</button>
+        </div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 23. Підсумок і прогрес -->
+    <section class="slide cover" aria-label="Підсумок" hidden style="background:linear-gradient(135deg,var(--mint-soft),var(--blue-soft) 60%,var(--violet-soft))">
+      <p class="kicker">Параграфи 1–4 завершено</p>
+      <h1>Людина — істота<br>соціальна</h1>
+      <div class="grid3" style="margin-top:8px">
+        <div class="tile" style="background:var(--card)"><b>Індивід → особистість</b><span>Людину формує суспільство.</span></div>
+        <div class="tile" style="background:var(--card)"><b>Родина</b><span>Перша школа цінностей.</span></div>
+        <div class="tile" style="background:var(--card)"><b>Цінності й потреби</b><span>Духовні і матеріальні.</span></div>
+      </div>
+      <div class="ex" data-type="progress" data-id="s23-progress" style="background:var(--card)">
+        <div class="ex-h"><span class="tag">Мій прогрес</span><b id="prog-text">Вправ виконано: 0</b></div>
+        <div class="qbtns"><button class="btn ghost" id="reset-progress">Скинути прогрес</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+      <p class="lead">Наступний параграф: § 5 «Родина і родинна традиція».</p>
+    </section>
+
+  </div>
+
+  <div class="nav">
+    <button class="btn ghost" id="prev">← Назад</button>
+    <span class="count" id="count" aria-live="polite"></span>
+    <button class="btn" id="next">Далі →</button>
+  </div>
+  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+  <p class="hint">Гортайте стрілками клавіатури або кнопками. Кожна вправа перевіряється одразу. Прогрес зберігається на вашому пристрої.</p>
+</main>
+
+<script>
+(function(){
+  /* ---------- Гортання ---------- */
+  var slides = Array.prototype.slice.call(document.querySelectorAll('#stage > .slide'));
+  var idx = 0;
+  var prev = document.getElementById('prev'), next = document.getElementById('next');
+  var count = document.getElementById('count'), bar = document.getElementById('bar');
+
+  function show(n){
+    idx = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function(s, k){ s.hidden = (k !== idx); });
+    window.scrollTo(0, 0);
+    count.textContent = (idx + 1) + ' / ' + slides.length;
+    bar.style.width = ((idx + 1) / slides.length * 100) + '%';
+    prev.disabled = idx === 0;
+    next.disabled = idx === slides.length - 1;
+  }
+  prev.addEventListener('click', function(){ show(idx - 1); });
+  next.addEventListener('click', function(){ show(idx + 1); });
+  document.addEventListener('keydown', function(e){
+    if (e.target.closest && e.target.closest('input,textarea')) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') show(idx + 1);
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') show(idx - 1);
+  });
+
+  /* ---------- Прогрес (localStorage, з перевіркою) ---------- */
+  var KEY = 'bily-rozdil1-par1-4';
+  var done = [];
+  try { done = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { done = []; }
+  if (!Array.isArray(done)) done = [];
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} }
+
+  var exs = Array.prototype.slice.call(document.querySelectorAll('.ex[data-id]')).filter(function(e){ return e.dataset.type !== 'progress'; });
+  var total = exs.length;
+
+  function refreshProgress(){
+    var n = exs.filter(function(e){ return done.indexOf(e.dataset.id) >= 0; }).length;
+    var pt = document.getElementById('prog-text');
+    if (pt) pt.textContent = 'Вправ виконано: ' + n + ' з ' + total;
+    exs.forEach(function(e){ e.classList.toggle('done', done.indexOf(e.dataset.id) >= 0); });
+  }
+  function markDone(ex){
+    if (done.indexOf(ex.dataset.id) < 0) { done.push(ex.dataset.id); save(); }
+    refreshProgress();
+  }
+
+  /* ---------- Спільні помічники ---------- */
+  function fb(ex, msg, ok){
+    var f = ex.querySelector(':scope > .fb');
+    if (!f) return;
+    f.textContent = msg;
+    f.className = 'fb' + (ok === true ? ' ok' : ok === false ? ' bad' : '');
+  }
+
+  /* ---------- Вправи ---------- */
+  exs.forEach(function(ex){
+    var t = ex.dataset.type;
+
+    if (t === 'single') {
+      ex._reset = function(){
+        delete ex.dataset.done;
+        ex.querySelectorAll('.opt').forEach(function(x){ x.disabled = false; x.classList.remove('right','wrong'); });
+        fb(ex, '');
+      };
+      ex.querySelectorAll('.opt').forEach(function(b){
+        b.addEventListener('click', function(){
+          if (ex.dataset.done) return;
+          if (b.dataset.ok === '1') {
+            b.classList.add('right'); ex.dataset.done = '1';
+            ex.querySelectorAll('.opt').forEach(function(x){ x.disabled = true; });
+            fb(ex, 'Правильно! Молодець.', true); markDone(ex);
+          } else {
+            b.classList.add('wrong'); b.disabled = true;
+            fb(ex, 'Ще не те. Спробуйте іншу відповідь.', false);
+          }
+        });
+      });
+    }
+
+    if (t === 'multi') {
+      var opts = ex.querySelectorAll('.opt');
+      ex._reset = function(){
+        delete ex.dataset.done;
+        opts.forEach(function(x){ x.disabled = false; x.classList.remove('sel','right','wrong','miss'); });
+        fb(ex, '');
+      };
+      opts.forEach(function(b){
+        b.addEventListener('click', function(){
+          if (ex.dataset.done) return;
+          b.classList.toggle('sel');
+        });
+      });
+      ex.querySelector('[data-check]').addEventListener('click', function(){
+        if (ex.dataset.done) return;
+        var sel = ex.querySelectorAll('.opt.sel').length;
+        if (sel !== 3) { fb(ex, 'Оберіть рівно 3 відповіді. Зараз обрано: ' + sel + '.', false); return; }
+        var good = 0;
+        opts.forEach(function(b){
+          var ok = b.dataset.ok === '1', s = b.classList.contains('sel');
+          b.classList.remove('sel');
+          if (s && ok) { b.classList.add('right'); good++; }
+          else if (s && !ok) { b.classList.add('wrong'); }
+          else if (!s && ok) { b.classList.add('miss'); }
+          b.disabled = true;
+        });
+        ex.dataset.done = '1';
+        if (good === 3) markDone(ex);
+        fb(ex, 'Правильних відповідей: ' + good + ' з 3. ' + (good === 3 ? 'Чудово!' : 'Пунктиром позначено правильні, які ви не обрали.'), good === 3);
+      });
+    }
+
+    if (t === 'pairs') {
+      var lefts = ex.querySelectorAll('.opt.l'), rights = ex.querySelectorAll('.opt.r');
+      var chosen = null, found = 0;
+      ex._reset = function(){
+        chosen = null; found = 0;
+        ex.querySelectorAll('.opt').forEach(function(x){ x.disabled = false; x.classList.remove('sel','matched','wrong'); });
+        fb(ex, '');
+      };
+      lefts.forEach(function(l){
+        l.addEventListener('click', function(){
+          if (l.disabled) return;
+          lefts.forEach(function(x){ x.classList.remove('sel'); });
+          l.classList.add('sel'); chosen = l;
+          fb(ex, '');
+        });
+      });
+      rights.forEach(function(r){
+        r.addEventListener('click', function(){
+          if (r.disabled) return;
+          if (!chosen) { fb(ex, 'Спершу оберіть поняття ліворуч.', false); return; }
+          if (chosen.dataset.id === r.dataset.id) {
+            chosen.classList.remove('sel'); chosen.classList.add('matched'); chosen.disabled = true;
+            r.classList.add('matched'); r.disabled = true;
+            found++; chosen = null;
+            if (found === 4) {
+              var extra = ex.querySelector('.opt.r[data-id="x"]');
+              extra.disabled = true;
+              fb(ex, 'Чудово! Усі 4 пари знайдено. Зайве: «' + extra.textContent + '».', true);
+              markDone(ex);
+            } else {
+              fb(ex, 'Правильно! Пар знайдено: ' + found + ' з 4.', true);
+            }
+          } else {
+            r.classList.add('wrong');
+            setTimeout(function(){ r.classList.remove('wrong'); }, 600);
+            fb(ex, 'Не пара. Спробуйте ще раз.', false);
+          }
+        });
+      });
+    }
+
+    if (t === 'tf') {
+      var rows = ex.querySelectorAll('.tfrow');
+      ex._reset = function(){
+        rows.forEach(function(row){
+          delete row.dataset.done;
+          row.classList.remove('right','wrong');
+          row.querySelectorAll('.tfb').forEach(function(b){ b.disabled = false; });
+        });
+        delete ex.dataset.done;
+        fb(ex, '');
+      };
+      rows.forEach(function(row){
+        row.querySelectorAll('.tfb').forEach(function(b){
+          b.addEventListener('click', function(){
+            if (row.dataset.done) return;
+            if (b.dataset.v === row.dataset.ok) {
+              row.dataset.done = '1'; row.classList.add('right');
+              row.querySelectorAll('.tfb').forEach(function(x){ x.disabled = true; });
+            } else {
+              row.classList.add('wrong');
+              setTimeout(function(){ row.classList.remove('wrong'); }, 700);
+            }
+            var left = ex.querySelectorAll('.tfrow:not([data-done])').length;
+            if (left === 0) { ex.dataset.done = '1'; fb(ex, 'Усі відповіді правильні!', true); markDone(ex); }
+            else fb(ex, 'Залишилось відповісти: ' + left + '. Перевірте червоні рядки.', null);
+          });
+        });
+      });
+    }
+
+    if (t === 'sort') {
+      var pool = ex.querySelector('.pool');
+      var sel = null;
+      ex.addEventListener('click', function(e){
+        if (ex.dataset.done) return;
+        var it = e.target.closest('.sitem, .bucket');
+        if (!it || !ex.contains(it)) return;
+        if (it.classList.contains('sitem')) {
+          if (it.closest('.pool')) {
+            if (sel) sel.classList.remove('sel');
+            if (sel === it) { sel = null; }
+            else { it.classList.add('sel'); sel = it; }
+          } else {
+            pool.appendChild(it); it.classList.remove('right','wrong');
+            if (sel === it) sel = null;
+          }
+        } else if (sel) {
+          it.querySelector('.blist').appendChild(sel);
+          sel.classList.remove('sel'); sel = null;
+        }
+      });
+      ex.querySelector('[data-check]').addEventListener('click', function(){
+        if (ex.dataset.done) return;
+        var left = pool.querySelectorAll('.sitem').length;
+        if (left > 0) { fb(ex, 'Розмістіть усі елементи. Ще лишилось: ' + left + '.', false); return; }
+        var good = 0, all = ex.querySelectorAll('.sitem');
+        all.forEach(function(s){
+          var cat = s.parentElement.closest('.bucket').dataset.cat;
+          s.classList.remove('sel');
+          if (cat === s.dataset.cat) { s.classList.add('right'); good++; }
+          else s.classList.add('wrong');
+        });
+        if (good === all.length) {
+          ex.dataset.done = '1'; fb(ex, 'Чудово! Усе розкладено правильно.', true); markDone(ex);
+        } else {
+          fb(ex, 'Правильно: ' + good + ' з ' + all.length + '. Червоним позначено помилки; перемістіть їх і перевірте знову.', false);
+          all.forEach(function(s){ if (s.classList.contains('wrong')) s.dataset.fix = '1'; });
+        }
+      });
+      ex.querySelector('[data-reset]').addEventListener('click', function(){ ex._reset(); });
+      ex._reset = function(){
+        if (sel) { sel.classList.remove('sel'); sel = null; }
+        delete ex.dataset.done;
+        ex.querySelectorAll('.sitem').forEach(function(s){ s.classList.remove('right','wrong','sel'); pool.appendChild(s); });
+        fb(ex, '');
+      };
+    }
+
+    if (t === 'blank') {
+      var gaps = ex.querySelectorAll('.gap'), chipsAll = ex.querySelectorAll('.chipw');
+      var selChip = null;
+      ex._reset = function(){
+        selChip = null; delete ex.dataset.done;
+        gaps.forEach(function(g){ g.textContent = '____'; g.classList.remove('right','wrong'); });
+        chipsAll.forEach(function(c){ c.disabled = false; c.classList.remove('sel'); });
+        fb(ex, '');
+      };
+      chipsAll.forEach(function(c){
+        c.addEventListener('click', function(){
+          if (c.disabled || ex.dataset.done) return;
+          chipsAll.forEach(function(x){ x.classList.remove('sel'); });
+          if (selChip === c) { selChip = null; return; }
+          c.classList.add('sel'); selChip = c;
+          fb(ex, 'Тепер натисніть пропуск у тексті.', null);
+        });
+      });
+      gaps.forEach(function(g){
+        g.addEventListener('click', function(){
+          if (g.classList.contains('right') || ex.dataset.done) return;
+          if (!selChip) { fb(ex, 'Спершу оберіть слово зі списку внизу.', false); return; }
+          if (selChip.dataset.w === g.dataset.ans) {
+            g.textContent = g.dataset.ans; g.classList.add('right');
+            selChip.disabled = true; selChip.classList.remove('sel'); selChip = null;
+            var left = ex.querySelectorAll('.gap:not(.right)').length;
+            if (left === 0) { ex.dataset.done = '1'; fb(ex, 'Чудово! Усі пропуски заповнено правильно.', true); markDone(ex); }
+            else fb(ex, 'Правильно! Залишилось пропусків: ' + left + '.', true);
+          } else {
+            g.classList.add('wrong');
+            setTimeout(function(){ g.classList.remove('wrong'); }, 600);
+            fb(ex, 'Не те слово. Спробуйте інше.', false);
+          }
+        });
+      });
+    }
+
+    if (t === 'order') {
+      var ords = ex.querySelectorAll('.ord'), k = 0;
+      ex._reset = function(){
+        k = 0; delete ex.dataset.done;
+        ords.forEach(function(o){ o.disabled = false; var n = o.querySelector('.n'); if (n) n.remove(); });
+        fb(ex, '');
+      };
+      ords.forEach(function(o){
+        o.addEventListener('click', function(){
+          if (o.disabled || ex.dataset.done) return;
+          if (+o.dataset.n === k + 1) {
+            k++;
+            o.disabled = true;
+            var span = document.createElement('span'); span.className = 'n'; span.textContent = k;
+            o.insertBefore(span, o.firstChild);
+            if (k === ords.length) { ex.dataset.done = '1'; fb(ex, 'Правильно! Ви розташували все в порядку розвитку.', true); markDone(ex); }
+            else fb(ex, 'Так! Далі — наступний етап.', true);
+          } else {
+            fb(ex, 'Не той порядок. Почніть знову з найдавнішого.', false);
+            ex._reset();
+          }
+        });
+      });
+    }
+
+    if (t === 'reveal') {
+      var rvs = ex.querySelectorAll('.rv');
+      ex._reset = function(){
+        delete ex.dataset.done;
+        rvs.forEach(function(r){
+          r.querySelector('.rva').hidden = true;
+          var b = r.querySelector('.rvb'); b.disabled = false; b.textContent = 'Показати зразок';
+        });
+        fb(ex, '');
+      };
+      rvs.forEach(function(r){
+        r.querySelector('.rvb').addEventListener('click', function(){
+          r.querySelector('.rva').hidden = false;
+          this.disabled = true; this.textContent = 'Зразок показано';
+          var left = ex.querySelectorAll('.rvb:not(:disabled)').length;
+          if (left === 0) { ex.dataset.done = '1'; fb(ex, 'Порівняйте свої відповіді із зразками.', true); markDone(ex); }
+        });
+      });
+    }
+
+    var rb = ex.querySelector(':scope > .qbtns [data-reset]');
+    if (rb && t !== 'sort') rb.addEventListener('click', function(){ if (ex._reset) ex._reset(); });
+  });
+
+  /* Кнопка «Скинути прогрес» на підсумковому слайді */
+  var rp = document.getElementById('reset-progress');
+  if (rp) rp.addEventListener('click', function(){
+    done = []; save();
+    exs.forEach(function(e){ if (e._reset) e._reset(); });
+    refreshProgress();
+    fb(rp.closest('.ex'), 'Прогрес скинуто. Можна почати знову.', null);
+  });
+
+  refreshProgress();
+  show(0);
+})();
+</script>
+</body>
+</html>
